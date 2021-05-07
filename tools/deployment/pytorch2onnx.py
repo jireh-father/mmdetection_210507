@@ -165,9 +165,9 @@ def pytorch2onnx(config_path,
             if show_dir is not None:
                 os.makedirs(show_dir, exist_ok=True)
                 from mmdet.apis import save_result_pyplot
-
-                save_result_pyplot(model, one_meta['show_img'], pytorch_results, os.path.join(show_dir, "pytorch.png"))
-                save_result_pyplot(model, one_meta['show_img'], onnx_results, os.path.join(show_dir, "onnx.png"))
+                im_name = os.path.splitext(os.path.basename(input_img))[0] + ".jpg"
+                save_result_pyplot(model, one_meta['show_img'], pytorch_results, os.path.join(show_dir, "pytorch_{}".format(im_name)))
+                save_result_pyplot(model, one_meta['show_img'], onnx_results, os.path.join(show_dir, "onnx_{}".format(im_name)))
 
         # compare a part of result
         if model.with_mask:
