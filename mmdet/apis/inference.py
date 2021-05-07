@@ -254,8 +254,8 @@ def save_result_pyplot(model, img, result, output_path, score_thr=0.3, fig_size=
         model = model.module
     img = model.show_result(img, result, score_thr=score_thr, show=False, bbox_color='red',
                             text_color='red',
-                            thickness=4,
-                            font_scale=0.75, )
+                            thickness=4)
+    import matplotlib.pyplot as plt
     plt.figure(figsize=fig_size)
     plt.imshow(mmcv.bgr2rgb(img))
     plt.savefig(output_path, format='jpg')
