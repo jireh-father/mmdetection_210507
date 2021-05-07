@@ -89,7 +89,7 @@ def cityscapes_classes():
     ]
 
 
-def plant():
+def plant_classes():
     return [
         'plant'
     ]
