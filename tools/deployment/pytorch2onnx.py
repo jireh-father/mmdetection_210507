@@ -11,6 +11,7 @@ from mmcv import DictAction
 from mmdet.core.export import (build_model_from_cfg,
                                generate_inputs_and_wrap_model,
                                preprocess_example_input)
+import os
 
 
 def pytorch2onnx(config_path,
@@ -26,7 +27,8 @@ def pytorch2onnx(config_path,
                  test_img=None,
                  do_simplify=False,
                  cfg_options=None,
-                 dynamic_export=None):
+                 dynamic_export=None,
+                 show_dir=None):
 
     input_config = {
         'input_shape': input_shape,
@@ -160,6 +162,13 @@ def pytorch2onnx(config_path,
             show_result_pyplot(
                 model, one_meta['show_img'], onnx_results, title='ONNXRuntime')
 
+            if show_dir is not None:
+                os.makedirs(show_dir, exist_ok=True)
+                from mmdet.apis import save_result_pyplot
+
+                save_result_pyplot(model, one_meta['show_img'], pytorch_results, os.path.join(show_dir, "pytorch.png"), score_thr=args.score_thr)
+                save_result_pyplot(model, one_meta['show_img'], onnx_results, os.path.join(show_dir, "onnx.png"), score_thr=args.score_thr)
+
         # compare a part of result
         if model.with_mask:
             compare_pairs = list(zip(onnx_results, pytorch_results))
@@ -187,6 +196,7 @@ def parse_args():
         action='store_true',
         help='Show onnx graph and detection outputs')
     parser.add_argument('--output-file', type=str, default='tmp.onnx')
+    parser.add_argument('--show-dir', type=str, default='tmp.onnx')
     parser.add_argument('--opset-version', type=int, default=11)
     parser.add_argument(
         '--test-img', type=str, default=None, help='Images for test')
@@ -272,4 +282,5 @@ if __name__ == '__main__':
         test_img=args.test_img,
         do_simplify=args.simplify,
         cfg_options=args.cfg_options,
-        dynamic_export=args.dynamic_export)
+        dynamic_export=args.dynamic_export,
+        show_dir=args.show_dir)
