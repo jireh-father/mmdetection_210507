@@ -5,6 +5,7 @@ import json
 import os
 import cv2
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
                                                  'results saved in pkl format')
@@ -23,8 +24,8 @@ def main():
     random.seed(args.random_seed)
 
     anno = json.load(open(args.annotation_file))
-
     images = anno["images"]
+    random.shuffle(images)
     train_cnt = round(len(images) * args.train_ratio)
     train_images = images[:train_cnt]
     val_images = images[train_cnt:]
@@ -77,8 +78,6 @@ def main():
         "images": val_images,
         "annotations": val_anno
     }
-
-
 
     os.makedirs(args.output_dir, exist_ok=True)
     json.dump(train_dict, open(os.path.join(args.output_dir, "train.json"), "w+"))
