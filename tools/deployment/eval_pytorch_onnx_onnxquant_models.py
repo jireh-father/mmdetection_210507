@@ -217,7 +217,7 @@ def pytorch2onnx(config_path,
                                                       one_meta,
                                                       pytorch_results, input_img, target="onnx_quant")
 
-        print("pytorch_total_time", pytorch_total_time, "onnx_total_time", onnx_total_time, "onnx_quant_total_time",
+        print("pytorch_total_time", pytorch_total_time / 5., "onnx_total_time", onnx_total_time, "onnx_quant_total_time",
               onnx_quant_total_time)
 
 
