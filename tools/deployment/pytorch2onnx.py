@@ -249,7 +249,7 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
 
-    assert args.opset_version == 11, 'MMDet only support opset 11 now'
+    # assert args.opset_version == 11, 'MMDet only support opset 11 now'
 
     if not args.input_img:
         args.input_img = osp.join(
