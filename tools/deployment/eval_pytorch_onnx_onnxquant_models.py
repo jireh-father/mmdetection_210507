@@ -15,7 +15,7 @@ import os
 
 
 def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, show, show_dir, model, one_meta,
-                          pytorch_results, input_img, target="onnx"):
+                          pytorch_results, input_img):
     from mmdet.core import bbox2result
     from mmdet.apis import show_result_pyplot
 
@@ -73,7 +73,7 @@ def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, s
             save_result_pyplot(model, one_meta['show_img'], pytorch_results,
                                os.path.join(show_dir, "pytorch_{}".format(im_name)))
             save_result_pyplot(model, one_meta['show_img'], onnx_results,
-                               os.path.join(show_dir, "{}_{}".format(target, im_name)))
+                               os.path.join(show_dir, "onnx_{}".format(im_name)))
 
     # compare a part of result
     if model.with_mask:
@@ -98,7 +98,6 @@ def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, s
 def pytorch2onnx(config_path,
                  checkpoint_path,
                  onnx_path,
-                 onnx_quant_path,
                  input_img,
                  input_shape,
                  opset_version=11,
@@ -214,14 +213,9 @@ def pytorch2onnx(config_path,
         # get onnx output
         onnx_total_time = diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, show, show_dir,
                                                 model, one_meta,
-                                                pytorch_results, input_img, target="onnx")
-        onnx_quant_total_time = diff_pytorch_and_onnx(onnx_quant_path, ort_custom_op_path, one_img, num_classes, show,
-                                                      show_dir, model,
-                                                      one_meta,
-                                                      pytorch_results, input_img, target="onnx_quant")
+                                                pytorch_results, input_img)
 
-        print("pytorch_total_time", pytorch_total_time / 5., "onnx_total_time", onnx_total_time, "onnx_quant_total_time",
-              onnx_quant_total_time)
+        print("pytorch_total_time", pytorch_total_time / 5., "onnx_total_time", onnx_total_time)
 
 
 def parse_args():
@@ -230,7 +224,6 @@ def parse_args():
     parser.add_argument('config', help='test config file path')
     parser.add_argument('checkpoint', help='checkpoint file')
     parser.add_argument('onnx_path', help='checkpoint file')
-    parser.add_argument('onnx_quant_path', help='checkpoint file')
     parser.add_argument('--input-img', type=str, help='Images for input')
     parser.add_argument(
         '--show',
@@ -313,7 +306,6 @@ if __name__ == '__main__':
         args.config,
         args.checkpoint,
         args.onnx_path,
-        args.onnx_quant_path,
         args.input_img,
         input_shape,
         opset_version=args.opset_version,
