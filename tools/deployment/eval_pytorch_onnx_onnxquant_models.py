@@ -69,11 +69,11 @@ def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, s
         if show_dir is not None:
             os.makedirs(show_dir, exist_ok=True)
             from mmdet.apis import save_result_pyplot
-            im_name = os.path.splitext(os.path.basename(input_img))[0] + "_{}.jpg".format(target)
+            im_name = os.path.splitext(os.path.basename(input_img))[0] + ".jpg"
             save_result_pyplot(model, one_meta['show_img'], pytorch_results,
                                os.path.join(show_dir, "pytorch_{}".format(im_name)))
             save_result_pyplot(model, one_meta['show_img'], onnx_results,
-                               os.path.join(show_dir, "onnx_{}".format(im_name)))
+                               os.path.join(show_dir, "{}_{}".format(target, im_name)))
 
     # compare a part of result
     if model.with_mask:
