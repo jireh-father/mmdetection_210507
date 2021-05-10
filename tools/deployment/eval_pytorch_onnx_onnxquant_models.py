@@ -21,7 +21,7 @@ def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, s
 
     # get onnx output
     onnx_model = onnx.load(onnx_path)
-    onnx.checker.check_model(onnx_model)
+    # onnx.checker.check_model(onnx_model)
     input_all = [node.name for node in onnx_model.graph.input]
     input_initializer = [
         node.name for node in onnx_model.graph.initializer
