@@ -21,8 +21,9 @@ def main():
     args = parser.parse_args()
 
     # build the model from a config file and a checkpoint file
+    print("loading")
     model = init_detector(args.config, args.checkpoint, device=args.device)
-
+    print("loaded")
     os.makedirs(os.path.join(args.output_dir, 'vis'), exist_ok=True)
     os.makedirs(os.path.join(args.output_dir, 'crop'), exist_ok=True)
     os.makedirs(os.path.join(args.output_dir, 'nodetected'), exist_ok=True)
