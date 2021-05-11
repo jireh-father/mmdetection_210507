@@ -28,6 +28,7 @@ def main():
     os.makedirs(os.path.join(args.output_dir, 'crop'), exist_ok=True)
     os.makedirs(os.path.join(args.output_dir, 'nodetected'), exist_ok=True)
     img_files = glob.glob(args.imgs)
+    print(img_files)
     for img in img_files:
         print(os.path.basename(img))
         # test a single image
