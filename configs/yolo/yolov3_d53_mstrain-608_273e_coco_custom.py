@@ -91,24 +91,26 @@ test_pipeline = [
             dict(type='Collect', keys=['img'])
         ])
 ]
+classes = ('plant',)
 data = dict(
     samples_per_gpu=8,
     workers_per_gpu=4,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_train2017.json',
-        img_prefix=data_root + 'train2017/',
-        pipeline=train_pipeline),
+        ann_file=data_root + 'plant/annotations/train.json',
+        img_prefix=data_root + 'plant/images',
+        classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline),
+        ann_file=data_root + 'plant/annotations/val.json',
+        img_prefix=data_root + 'plant/images',
+        classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline))
+        ann_file=data_root + 'plant/annotations/test.json',
+        img_prefix=data_root + 'plant/images',
+        classes=classes, pipeline=test_pipeline))
+
 # optimizer
 optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0005)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
