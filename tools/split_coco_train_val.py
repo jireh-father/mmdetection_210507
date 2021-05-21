@@ -65,25 +65,15 @@ def main():
             image_item['height'] = height
             image_item['width'] = width
 
-    train_dict = {
-        "info": anno["info"],
-        "licenses": anno["info"],
-        "categories": [{'id': 1, 'name': 'plant', 'supercategory': 'plant'}],
-        "images": train_images,
-        "annotations": train_anno
-    }
-
-    val_dict = {
-        "info": anno["info"],
-        "licenses": anno["info"],
-        "categories": [{'id': 1, 'name': 'plant', 'supercategory': 'plant'}],
-        "images": val_images,
-        "annotations": val_anno
-    }
-
     os.makedirs(args.output_dir, exist_ok=True)
-    json.dump(train_dict, open(os.path.join(args.output_dir, "train.json"), "w+"))
-    json.dump(val_dict, open(os.path.join(args.output_dir, "val.json"), "w+"))
+
+    anno['images'] = train_images
+    anno['annotations'] = train_anno
+    json.dump(anno, open(os.path.join(args.output_dir, "train.json"), "w+"))
+
+    anno['images'] = val_images
+    anno['annotations'] = val_anno
+    json.dump(anno, open(os.path.join(args.output_dir, "val.json"), "w+"))
 
     print("done")
 
