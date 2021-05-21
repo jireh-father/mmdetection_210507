@@ -1,10 +1,8 @@
 import argparse
 
-import random
 import json
 import os
-import cv2
-from coco_assistant import COCO_Assistant
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
