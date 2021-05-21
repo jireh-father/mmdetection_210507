@@ -55,7 +55,7 @@ def main():
     new_coco = json.load(open(coco_file))
     new_coco['annotations'] = new_annotations
     new_coco['images'] = new_images
-    os.makedirs(args.output_file, exist_ok=True)
+    os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
     json.dump(new_coco, open(args.output_file, "w+"))
 
     print("done")
