@@ -26,12 +26,14 @@ def main():
             image_dict[image['id']] = {'image': image}
 
         for anno in coco['annotations']:
-            if anno['image_id'] not in image_dict:
+            tmp_im_id = anno['image_id']
+            if tmp_im_id not in image_dict:
                 print("not exist image id", anno['image_id'])
                 continue
-            if 'annos' not in image_dict[image['id']]:
-                image_dict[image['id']]['annos'] = []
-            image_dict[image['id']]['annos'].append(anno)
+
+            if 'annos' not in image_dict[tmp_im_id]:
+                image_dict[tmp_im_id]['annos'] = []
+            image_dict[tmp_im_id]['annos'].append(anno)
 
         image_annos += list(image_dict.values())
 
