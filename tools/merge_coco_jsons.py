@@ -43,6 +43,9 @@ def main():
         image_anno['image']['id'] = new_image_id
         new_images.append(image_anno['image'])
 
+        if 'annos' not in image_anno:
+            print("no anno of image", image_anno['image']['id'])
+            continue
         for anno in image_anno['annos']:
             anno['id'] = new_anno_id
             anno['image_id'] = new_image_id
