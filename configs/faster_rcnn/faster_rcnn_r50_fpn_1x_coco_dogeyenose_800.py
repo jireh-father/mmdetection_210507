@@ -5,7 +5,7 @@ _base_ = [
 ]
 
 # dataset settings
-dataset_type = 'PlantDataset'
+dataset_type = 'DogEyesNoseDataset'
 data_root = 'data/coco/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -34,24 +34,24 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
-classes = ('plant',)
+classes = ('dog_left_eye','dog_right_eye','dog_nose')
 
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'plant/annotations/train.json',
-        img_prefix=data_root + 'plant/images',
+        ann_file=data_root + 'dog_eyes_nose/train.json',
+        img_prefix=data_root + 'dog_eyes_nose/images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'plant/annotations/val.json',
-        img_prefix=data_root + 'plant/images',
+        ann_file=data_root + 'dog_eyes_nose/val.json',
+        img_prefix=data_root + 'dog_eyes_nose/images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'plant/annotations/test.json',
-        img_prefix=data_root + 'plant/images',
+        ann_file=data_root + 'dog_eyes_nose/val.json',
+        img_prefix=data_root + 'dog_eyes_nose/images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
