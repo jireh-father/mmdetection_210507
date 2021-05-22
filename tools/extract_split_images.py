@@ -19,8 +19,6 @@ def parse_args():
 def main():
     args = parse_args()
 
-    random.seed(args.random_seed)
-
     anno = json.load(open(args.annotation_file))
     images = anno["images"]
 
