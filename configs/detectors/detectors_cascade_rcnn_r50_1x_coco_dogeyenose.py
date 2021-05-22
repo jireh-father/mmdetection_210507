@@ -83,7 +83,7 @@ data = dict(
 evaluation = dict(interval=1, metric='bbox')
 
 # optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001)
-optimizer = dict(type='Adam', lr=0.0005, weight_decay=0.0001, _delete_=True)
+optimizer = dict(type='Adam', lr=0.0001, weight_decay=0.0001, _delete_=True)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2), _delete_=True)
 # learning policy
 lr_config = dict(
