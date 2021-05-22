@@ -3,6 +3,7 @@ from .cityscapes import CityscapesDataset
 from .coco import CocoDataset
 from .plant import PlantDataset
 from .dog_eyes_nose import DogEyesNoseDataset
+from .dog_merged_eyes_nose import DogMergedEyesNoseDataset
 from .custom import CustomDataset
 from .dataset_wrappers import (ClassBalancedDataset, ConcatDataset,
                                RepeatDataset)
@@ -22,5 +23,5 @@ __all__ = [
     'DistributedSampler', 'build_dataloader', 'ConcatDataset', 'RepeatDataset',
     'ClassBalancedDataset', 'WIDERFaceDataset', 'DATASETS', 'PIPELINES',
     'build_dataset', 'replace_ImageToTensor', 'get_loading_pipeline',
-    'NumClassCheckHook', 'PlantDataset', 'DogEyesNoseDataset'
+    'NumClassCheckHook', 'PlantDataset', 'DogEyesNoseDataset', 'DogMergedEyesNoseDataset'
 ]
