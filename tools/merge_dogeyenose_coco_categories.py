@@ -20,7 +20,7 @@ def main():
     cate_id_map = {2: 1, 3: 2}
     os.makedirs(args.output_dir, exist_ok=True)
     for coco_file in coco_files:
-        coco = json.load(open(args.coco_file))
+        coco = json.load(open(coco_file))
         for i in range(len(coco['annotations'])):
             anno_cate_id = coco['annotations'][i]["category_id"]
             if anno_cate_id in cate_id_map:
