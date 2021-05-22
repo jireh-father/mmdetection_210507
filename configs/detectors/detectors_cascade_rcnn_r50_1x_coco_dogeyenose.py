@@ -82,4 +82,4 @@ data = dict(
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
 
-optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001)
