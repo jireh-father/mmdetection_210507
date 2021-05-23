@@ -256,6 +256,8 @@ def save_result_pyplot(model, img, result, output_path, score_thr=0.3, fig_size=
                             text_color='red',
                             thickness=4)
     import matplotlib.pyplot as plt
+    import matplotlib
+    matplotlib.use('Agg')
     plt.figure(figsize=fig_size)
     plt.imshow(mmcv.bgr2rgb(img))
     plt.savefig(output_path, format='jpg')
