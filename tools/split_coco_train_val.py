@@ -52,7 +52,6 @@ def main():
         for i, image_item in enumerate(train_images):
             print(i, len(train_images))
             image_path = os.path.join(args.image_dir, image_item["file_name"])
-            print(image_path)
             im = cv2.imread(image_path)
             height, width, _ = im.shape
             image_item['height'] = height
