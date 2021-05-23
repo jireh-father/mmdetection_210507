@@ -252,12 +252,13 @@ def save_result_pyplot(model, img, result, output_path, score_thr=0.3, fig_size=
     """
     if hasattr(model, 'module'):
         model = model.module
-    img = model.show_result(img, result, score_thr=score_thr, show=False, bbox_color='red',
-                            text_color='red',
-                            thickness=4)
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    img = model.show_result(img, result, score_thr=score_thr, show=False, bbox_color='red',
+                            text_color='red',
+                            thickness=4)
+
 
     plt.figure(figsize=fig_size)
     plt.imshow(mmcv.bgr2rgb(img))
