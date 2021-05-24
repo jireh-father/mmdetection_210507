@@ -40,6 +40,8 @@ def main():
             shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
             continue
         output_path = os.path.join(args.output_dir, 'vis', os.path.splitext(os.path.basename(img))[0] + ".jpg")
+        print(result)
+        sys.exit()
         save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
         im = Image.open(img).convert("RGB")
         for j, bbox in enumerate(result[0]):
