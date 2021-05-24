@@ -44,7 +44,7 @@ def main():
         output_path = os.path.join(args.output_dir, 'vis', os.path.splitext(os.path.basename(img))[0] + ".jpg")
         eye_scors = result[0][:,4]
         eye_scors_indices = np.argsort(eye_scors)
-        eye_scors_indices = eye_scors_indices[::-1][:n]
+        eye_scors_indices = eye_scors_indices[::-1]
         highest_score_eye = result[0][eye_scors_indices[0]]
         print(highest_score_eye)
         # for idx in range(1, len(eye_scors_indices)):
