@@ -72,7 +72,6 @@ def main():
         result[1] = result[1][max_nose_idx:max_nose_idx + 1, :]
 
         print(result)
-        sys.exit()
         save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
         im = Image.open(img).convert("RGB")
         for j, bbox in enumerate(result[0]):
