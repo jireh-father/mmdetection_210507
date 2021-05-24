@@ -39,7 +39,18 @@ def main():
         if len(result) < 1  or len(result[0]) < 1:
             shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
             continue
+        print(img)
         output_path = os.path.join(args.output_dir, 'vis', os.path.splitext(os.path.basename(img))[0] + ".jpg")
+        eye_scors = result[0][:,4]
+        eye_scors_indices = np.argsort(eye_scors)
+        eye_scors_indices = eye_scors_indices[::-1][:n]
+        highest_score_eye = result[0][eye_scors_indices[0]]
+        print(highest_score_eye)
+        # for idx in range(1, len(eye_scors_indices)):
+        #     result[0][idx]
+        #
+        # result[1]
+
         print(result)
         sys.exit()
         save_result_pyplot(model, img, result, output_path, score_thr=args.score_thr)
