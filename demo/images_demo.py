@@ -40,6 +40,7 @@ def main():
             shutil.copy(img, os.path.join(args.output_dir, 'nodetected'))
             continue
         print(img)
+        import numpy as np
         output_path = os.path.join(args.output_dir, 'vis', os.path.splitext(os.path.basename(img))[0] + ".jpg")
         eye_scors = result[0][:,4]
         eye_scors_indices = np.argsort(eye_scors)
