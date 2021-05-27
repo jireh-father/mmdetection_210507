@@ -107,7 +107,7 @@ dataset_aliases = {
     'wider_face': ['WIDERFaceDataset', 'wider_face', 'WIDERFace'],
     'cityscapes': ['cityscapes'],
     'plant': ['plant'],
-    'dogeyenose': ['eye', 'nose'],
+    'dogeyenose': ['dogeyenose'],
 }
 
 
