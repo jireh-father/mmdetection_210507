@@ -94,6 +94,10 @@ def plant_classes():
         'plant'
     ]
 
+def dogeyenose_classes():
+    return [
+        'eye', 'nose'
+    ]
 
 dataset_aliases = {
     'voc': ['voc', 'pascal_voc', 'voc07', 'voc12'],
@@ -102,7 +106,8 @@ dataset_aliases = {
     'coco': ['coco', 'mscoco', 'ms_coco'],
     'wider_face': ['WIDERFaceDataset', 'wider_face', 'WIDERFace'],
     'cityscapes': ['cityscapes'],
-    'plant': ['plant']
+    'plant': ['plant'],
+    'dogeyenose': ['eye', 'nose'],
 }
 
 
