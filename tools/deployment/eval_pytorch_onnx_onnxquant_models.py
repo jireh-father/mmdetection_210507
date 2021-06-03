@@ -39,6 +39,8 @@ def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, s
     sess = rt.InferenceSession(onnx_path, session_options)
 
     total_time = 0.
+    print(net_feed_input[0])
+    sys.exit()
     onnx_outputs = sess.run(None, {net_feed_input[0]: feed_input_img})
 
     for i in range(5):
