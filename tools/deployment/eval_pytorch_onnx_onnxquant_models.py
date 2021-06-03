@@ -30,13 +30,15 @@ def diff_pytorch_and_onnx(onnx_path, ort_custom_op_path, one_img, num_classes, s
     assert (len(net_feed_input) == 1)
     session_options = rt.SessionOptions()
     # register custom op for ONNX Runtime
+    print(ort_custom_op_path)
+    sys.exit()
     if osp.exists(ort_custom_op_path):
         session_options.register_custom_ops_library(ort_custom_op_path)
     feed_input_img = one_img.detach().numpy()
     # if dynamic_export:
     #     # test batch with two input images
     #     feed_input_img = np.vstack([feed_input_img, feed_input_img])
-    sess = rt.InferenceSession(onnx_path, None)#session_options)
+    sess = rt.InferenceSession(onnx_path, session_options)
 
     total_time = 0.
     onnx_outputs = sess.run(None, {net_feed_input[0]: feed_input_img})
