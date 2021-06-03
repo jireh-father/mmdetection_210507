@@ -134,6 +134,8 @@ def pytorch2onnx(config_path,
         session_options = rt.SessionOptions()
         # register custom op for ONNX Runtime
         if osp.exists(ort_custom_op_path):
+            print(ort_custom_op_path)
+            sys.exit()
             session_options.register_custom_ops_library(ort_custom_op_path)
         feed_input_img = one_img.detach().numpy()
         if dynamic_export:
