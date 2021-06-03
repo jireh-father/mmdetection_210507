@@ -2,6 +2,8 @@ import argparse
 import os
 from PIL import Image
 import glob
+import numpy as np
+import time
 
 
 def parse_args():
@@ -18,23 +20,32 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     image_files = glob.glob(os.path.join(args.image_dir, "*"))
 
-    cropped_cnt = 0
-    total_w = 0
-    total_h = 0
+    total_w = []
+    total_h = []
+    total_time = 0.
     for i, image_file in enumerate(image_files):
         if i % 10 == 0:
             print(i, len(image_files), image_file)
+        start = time.time()
         im = Image.open(image_file)
         bbox = im.getbbox()
         im = im.crop(bbox)
+        exec_time = time.time() - start
         w, h = im.size
         if w == 1280 and h == 720:
             continue
-        total_w += w
-        total_h += h
-        cropped_cnt += 1
+        total_time += exec_time
+        total_w.append(w)
+        total_h.append(h)
         im.save(os.path.join(args.output_dir, os.path.splitext(os.path.basename(image_file))[0] + ".jpg"))
-    print("avg width", float(total_w) / cropped_cnt, "avg height", float(total_h) / cropped_cnt)
+    total_h = np.array(total_h)
+    total_w = np.array(total_w)
+    print("total_w.mean(), total_w.max(), total_w.min(), total_w.var(), total_w.std()")
+    print(total_w.mean(), total_w.max(), total_w.min(), total_w.var(), total_w.std())
+    print("total_h.mean(), total_h.max(), total_h.min(), total_h.var(), total_h.std()")
+    print(total_h.mean(), total_h.max(), total_h.min(), total_h.var(), total_h.std())
+    print("cropped cnt", len(total_h))
+    print("avg time", total_time / len(total_h))
     print("done")
 
 
