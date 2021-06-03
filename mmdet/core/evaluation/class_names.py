@@ -101,7 +101,7 @@ def dogeyenose_classes():
     ]
 
 
-def foot_trialngles_classes():
+def foot_triangles_classes():
     return [
         'foot', 'left_triangle', 'right_triangle'
     ]
@@ -116,7 +116,7 @@ dataset_aliases = {
     'cityscapes': ['cityscapes'],
     'plant': ['plant'],
     'dogeyenose': ['dogeyenose'],
-    'foot_trialngles': ['foot_trialngles'],
+    'foot_triangles': ['foot_triangles'],
 }
 
 
