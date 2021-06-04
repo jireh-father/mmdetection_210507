@@ -72,6 +72,7 @@ def main():
 
     coco = get_coco_template()
     coco["images"] = images
+    os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
     json.dump(coco, open(args.output_path, "w+"))
 
     print("done")
