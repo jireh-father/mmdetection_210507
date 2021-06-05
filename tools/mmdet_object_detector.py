@@ -3,6 +3,7 @@ import asyncio
 from argparse import ArgumentParser
 import os
 import glob
+import time
 
 
 def save_result_pyplot(model,
@@ -88,6 +89,15 @@ def main(args):
                            # text_color='red',
                            # thickness=4
                            )
+    if args.benchmark:
+        total_exec_time = 0.
+        for i in range(args.try_cnt):
+            start_time = time.time()
+            od.inference(imgs[0])
+            total_exec_time += time.time() - start_time
+        print("{} tries, avg exec time: {}".format(args.try_cnt, total_exec_time / args.try_cnt))
+
+    print("done")
 
 
 def parse_args():
@@ -100,6 +110,8 @@ def parse_args():
     parser.add_argument(
         '--score-thr', type=float, default=0.3, help='bbox score threshold')
     parser.add_argument('--show_dir', default=None, type=str)
+    parser.add_argument('--benchmark', action='store_true')
+    parser.add_argument('--try_cnt', default=10, type=int)
     # parser.add_argument(
     #     '--async-test',
     #     action='store_true',
