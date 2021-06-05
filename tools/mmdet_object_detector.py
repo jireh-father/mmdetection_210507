@@ -75,12 +75,12 @@ def main(args):
     if args.show_dir:
         os.makedirs(args.show_dir, exist_ok=True)
 
-    for img in imgs:
+    for i, img in enumerate(imgs):
         if args.show_dir:
             out_file = os.path.join(args.show_dir, os.path.splitext(os.path.basename(img))[0] + ".jpg")
         save_result_pyplot(od.model,
                            img,
-                           result,
+                           result[i],
                            score_thr=args.score_thr,
                            out_file=out_file,
                            # mask_color=None,
