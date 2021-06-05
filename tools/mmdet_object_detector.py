@@ -11,8 +11,9 @@ class MmdetObjectDetector:
 
     def inference(self, image_file_or_array):
         result = inference_detector(self.model, image_file_or_array)
-        print(result[0].shape)
-        print(result[1].shape)
+        print(len(result))
+        print(len(result[0]))
+        print(len(result[1]))
     #
     # def async_inference(self, image_files_or_arrays):
     #     tasks = asyncio.create_task(async_inference_detector(self.model, image_files_or_arrays))
