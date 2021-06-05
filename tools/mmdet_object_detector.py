@@ -12,11 +12,11 @@ class MmdetObjectDetector:
     def inference(self, image_file_or_array):
         result = inference_detector(self.model, image_file_or_array)
         print(result)
-
-    def async_inference(self, image_files_or_arrays):
-        tasks = asyncio.create_task(async_inference_detector(self.model, image_files_or_arrays))
-        result = await asyncio.gather(tasks)
-        print(result)
+    #
+    # def async_inference(self, image_files_or_arrays):
+    #     tasks = asyncio.create_task(async_inference_detector(self.model, image_files_or_arrays))
+    #     result = await asyncio.gather(tasks)
+    #     print(result)
 
 def main(args):
     od = MmdetObjectDetector(args.config, args.checkpoint, args.device)
@@ -39,10 +39,10 @@ def parse_args():
         '--device', default='cuda:0', help='Device used for inference')
     parser.add_argument(
         '--score-thr', type=float, default=0.3, help='bbox score threshold')
-    parser.add_argument(
-        '--async-test',
-        action='store_true',
-        help='whether to set async options for async inference.')
+    # parser.add_argument(
+    #     '--async-test',
+    #     action='store_true',
+    #     help='whether to set async options for async inference.')
     args = parser.parse_args()
     return args
 
