@@ -24,10 +24,10 @@ def main(args):
         imgs = args.img_or_pattern
     else:
         imgs = glob.glob(args.img_or_pattern)
-    if args.async_test:
-        od.async_inference(imgs)
-    else:
-        od.inference(imgs)
+    # if args.async_test:
+    #     od.async_inference(imgs)
+    # else:
+    od.inference(imgs)
 
 
 def parse_args():
