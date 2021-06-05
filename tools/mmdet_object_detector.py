@@ -64,6 +64,7 @@ class MmdetObjectDetector:
 
 
 def main(args):
+    print("init model")
     od = MmdetObjectDetector(args.config, args.checkpoint, args.device)
     if os.path.isfile(args.img_or_pattern):
         imgs = [args.img_or_pattern]
@@ -72,24 +73,27 @@ def main(args):
     # if args.async_test:
     #     od.async_inference(imgs)
     # else:
+
+    print("inference")
     result = od.inference(imgs)
     if args.show_dir:
+        print("visualize")
         os.makedirs(args.show_dir, exist_ok=True)
-
-    for i, img in enumerate(imgs):
-        if args.show_dir:
+        for i, img in enumerate(imgs):
+            print("{}/{} {} file is visualized to {}".format(i, len(imgs), img, out_file))
             out_file = os.path.join(args.show_dir, os.path.splitext(os.path.basename(img))[0] + ".jpg")
-        save_result_pyplot(od.model,
-                           img,
-                           result[i],
-                           score_thr=args.score_thr,
-                           out_file=out_file,
-                           # mask_color=None,
-                           # bbox_color='red',
-                           # text_color='red',
-                           # thickness=4
-                           )
+            save_result_pyplot(od.model,
+                               img,
+                               result[i],
+                               score_thr=args.score_thr,
+                               out_file=out_file,
+                               # mask_color=None,
+                               # bbox_color='red',
+                               # text_color='red',
+                               # thickness=4
+                               )
     if args.benchmark:
+        print("started to benchmark")
         total_exec_time = 0.
         for i in range(args.try_cnt):
             start_time = time.time()
