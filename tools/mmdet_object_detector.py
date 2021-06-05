@@ -54,10 +54,6 @@ class MmdetObjectDetector:
         # result[1]: masks
         # result[1][0]: class 0's mask
         # result[1][0][0]: masks
-        print(result[0][0])
-        print(result[1][0][0])
-        print(result[0][0].shape)
-        print(result[1][0][0].shape)
         return result
     #
     # def async_inference(self, image_files_or_arrays):
