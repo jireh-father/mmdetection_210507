@@ -11,6 +11,8 @@ class MmdetObjectDetector:
 
     def inference(self, image_file_or_array):
         result = inference_detector(self.model, image_file_or_array)
+        print(result[0][0])
+        print(result[1][0][0])
         print(result[0][0].shape)
         print(result[1][0][0].shape)
     #
