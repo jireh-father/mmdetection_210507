@@ -43,7 +43,7 @@ def save_result_pyplot(model,
         mask_color=mask_color)
 
 
-class MmdetObjectDetector:
+class MmdetInferencer:
     def __init__(self, config, checkpoint, device='CPU'):
         self.model = init_detector(config, checkpoint, device=device)
 
@@ -65,7 +65,7 @@ class MmdetObjectDetector:
 
 def main(args):
     print("init model")
-    od = MmdetObjectDetector(args.config, args.checkpoint, args.device)
+    od = MmdetInferencer(args.config, args.checkpoint, args.device)
     if os.path.isfile(args.img_or_pattern):
         imgs = [args.img_or_pattern]
     else:
