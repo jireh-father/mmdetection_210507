@@ -1,5 +1,4 @@
-from mmdet.apis import init_detector, inference_detector, async_inference_detector
-import asyncio
+from mmdet.apis import init_detector, inference_detector
 from argparse import ArgumentParser
 import os
 import glob
@@ -55,12 +54,7 @@ class MmdetInferencer:
         # result[1]: masks
         # result[1][0]: class 0's mask
         # result[1][0][0]: masks
-        return result
-    #
-    # def async_inference(self, image_files_or_arrays):
-    #     tasks = asyncio.create_task(async_inference_detector(self.model, image_files_or_arrays))
-    #     result = await asyncio.gather(tasks)
-    #     print(result)
+        return result[1]
 
 
 def main(args):
@@ -70,12 +64,10 @@ def main(args):
         imgs = [args.img_or_pattern]
     else:
         imgs = glob.glob(args.img_or_pattern)
-    # if args.async_test:
-    #     od.async_inference(imgs)
-    # else:
 
     print("inference")
     result = od.inference(imgs)
+    print(result[0])
     if args.show_dir:
         print("visualize")
         os.makedirs(args.show_dir, exist_ok=True)
@@ -116,10 +108,6 @@ def parse_args():
     parser.add_argument('--show_dir', default=None, type=str)
     parser.add_argument('--benchmark', action='store_true')
     parser.add_argument('--try_cnt', default=10, type=int)
-    # parser.add_argument(
-    #     '--async-test',
-    #     action='store_true',
-    #     help='whether to set async options for async inference.')
     args = parser.parse_args()
     return args
 
