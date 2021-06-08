@@ -1,5 +1,5 @@
 import argparse
-
+import glob
 import json
 import os
 
@@ -7,7 +7,7 @@ import os
 def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
                                                  'results saved in pkl format')
-    parser.add_argument('--coco_files', type=str, default=None)
+    parser.add_argument('--coco_files_or_pattern', type=str, default=None)
     parser.add_argument('--output_file', type=str, default=None)
     args = parser.parse_args()
     return args
@@ -16,7 +16,11 @@ def parse_args():
 def main():
     args = parse_args()
 
-    coco_files = args.coco_files.split(",")
+    coco_files_or_patterns = args.coco_files_or_pattern.split(",")
+    if os.path.isfile(coco_files_or_patterns[0]):
+        coco_files = coco_files_or_patterns
+    else:
+        coco_files = glob.glob(args.coco_files_or_pattern)
 
     image_annos = []
     for coco_file in coco_files:
