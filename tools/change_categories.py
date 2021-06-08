@@ -28,7 +28,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     for coco_file in coco_files:
         coco = json.load(open(coco_file))
-        coco['categories'] = json.loads(args.cateogries_json)
+        coco['categories'] = json.loads(args.categories_json)
         output_path = os.path.join(args.output_dir, os.path.basename(coco_file))
         json.dump(coco, open(output_path, "w+"))
 
