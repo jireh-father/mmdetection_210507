@@ -11,7 +11,7 @@ def parse_args():
     parser.add_argument('--coco_files_or_pattern', type=str, default=None)
     parser.add_argument('--output_dir', type=str, default=None)
     parser.add_argument('--categories_json', type=str,
-                        default='[{"id": 1, "name": "dog_eye", "supercategory": "0_true_position"}]')
+                        default='[{"id": 1, "name": "dog_eye", "supercategory": "0_true_positive"}, {"id": 2, "name": "dog_nose", "supercategory": "0_true_positive"}]')
 
     args = parser.parse_args()
     return args
