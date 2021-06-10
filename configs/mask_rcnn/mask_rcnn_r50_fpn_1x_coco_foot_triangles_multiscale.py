@@ -13,8 +13,8 @@ img_norm_cfg = dict(
 albu_train_transforms = [
     dict(
         type='ShiftScaleRotate',
-        shift_limit=0.0,
-        scale_limit=0.0,
+        shift_limit=0.05,
+        scale_limit=0.05,
         rotate_limit=15,
         interpolation=1,
         p=0.5),
