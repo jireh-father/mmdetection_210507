@@ -32,7 +32,6 @@ train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     # dict(type='Resize', img_scale=(416, 416), keep_ratio=True),
-    dict(type='Rotate', level=1, img_fill_val=[0, 0, 0], max_rotate_angle=15),
     dict(type='PhotoMetricDistortion'),
     dict(
         type='Resize',
