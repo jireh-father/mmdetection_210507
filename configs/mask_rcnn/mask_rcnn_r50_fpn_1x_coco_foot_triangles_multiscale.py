@@ -32,18 +32,12 @@ train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     # dict(type='Resize', img_scale=(416, 416), keep_ratio=True),
-    dict(type='PhotoMetricDistortion'),
-    dict(
-        type='Resize',
-        img_scale=[(400, 380), (700, 430)],
-        multiscale_mode='range',
-        keep_ratio=True),
     dict(
         type='Albu',
         transforms=albu_train_transforms,
         bbox_params=dict(
             type='BboxParams',
-            format='coco',#'pascal_voc',
+            format='coco',  # 'pascal_voc',
             label_fields=['gt_labels'],
             min_visibility=0.0,
             filter_lost_elements=True),
@@ -54,6 +48,13 @@ train_pipeline = [
         },
         update_pad_shape=False,
         skip_img_without_anno=True),
+    dict(type='PhotoMetricDistortion'),
+    dict(
+        type='Resize',
+        img_scale=[(400, 380), (700, 430)],
+        multiscale_mode='range',
+        keep_ratio=True),
+
     dict(type='RandomFlip', flip_ratio=0.0),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
