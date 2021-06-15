@@ -26,7 +26,7 @@ def main(args):
     for i in range(10):
         start = time.time()
         inference_detector(model, args.img)
-        total += time.time()
+        total += time.time() - start
     print(total / 10)
     # show the results
     # show_result_pyplot(model, args.img, result, score_thr=args.score_thr)
