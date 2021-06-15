@@ -32,12 +32,20 @@ train_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     # dict(type='Resize', img_scale=(416, 416), keep_ratio=True),
+    dict(type='PhotoMetricDistortion'),
+    dict(
+        type='Resize',
+        img_scale=[(380, 380), (450, 450)],
+        multiscale_mode='range',
+        keep_ratio=True),
+    dict(type='RandomFlip', flip_ratio=0.0),
+    dict(type='Pad', size_divisor=32),
     dict(
         type='Albu',
         transforms=albu_train_transforms,
         bbox_params=dict(
             type='BboxParams',
-            format='coco',
+            format='pascal_voc',
             label_fields=['gt_labels'],
             min_visibility=0.0,
             filter_lost_elements=True),
@@ -48,18 +56,13 @@ train_pipeline = [
         },
         update_pad_shape=False,
         skip_img_without_anno=True),
-    dict(type='PhotoMetricDistortion'),
-    dict(
-        type='Resize',
-        img_scale=[(380, 380), (450, 450)],
-        multiscale_mode='range',
-        keep_ratio=True),
-
-    dict(type='RandomFlip', flip_ratio=0.0),
     dict(type='Normalize', **img_norm_cfg),
-    dict(type='Pad', size_divisor=32),
     dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
+    dict(
+        type='Collect',
+        keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'],
+        meta_keys=('filename', 'ori_shape', 'img_shape', 'img_norm_cfg',
+                   'pad_shape', 'scale_factor'))
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),
