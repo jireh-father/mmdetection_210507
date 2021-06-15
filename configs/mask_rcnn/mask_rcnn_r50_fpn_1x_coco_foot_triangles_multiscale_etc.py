@@ -51,7 +51,7 @@ train_pipeline = [
     dict(type='PhotoMetricDistortion'),
     dict(
         type='Resize',
-        img_scale=[(400, 380), (700, 430)],
+        img_scale=[(380, 380), (450, 450)],
         multiscale_mode='range',
         keep_ratio=True),
 
@@ -65,7 +65,7 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(600, 425),
+        img_scale=(416, 416),
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
