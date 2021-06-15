@@ -12,11 +12,11 @@ img_norm_cfg = dict(
 
 albu_train_transforms = [
     dict(
-        type='ShiftScaleRotate',
-        shift_limit=0.0,
-        scale_limit=1.0,
-        rotate_limit=15,
+        type='Rotate',
+        limit=15,
         interpolation=1,
+        border_mode=0,
+        value=0,
         p=0.5),
     dict(type='JpegCompression', quality_lower=70, quality_upper=100, p=0.3),
     dict(
