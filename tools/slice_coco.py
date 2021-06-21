@@ -39,7 +39,7 @@ def main():
         if tmp_anno["image_id"] in images_dict:
             new_anno.append(tmp_anno)
         else:
-            raise Exception("no image id in anno", tmp_anno)
+            continue
 
     if args.check_image_size:
         for i, image_item in enumerate(images):
