@@ -13,7 +13,7 @@ def parse_args():
     parser.add_argument('--output_path', type=str, default=None)
     parser.add_argument('--image_dir', type=str, default=None)
     parser.add_argument('--random_seed', type=int, default=1)
-    parser.add_argument('--num_images', type=str, default=None)
+    parser.add_argument('--num_images', type=int, default=None)
     parser.add_argument('--check_image_size', action="store_true", default=False)
     args = parser.parse_args()
     return args
