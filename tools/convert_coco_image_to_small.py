@@ -11,9 +11,12 @@ from pycocotools import mask
 def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
                                                  'results saved in pkl format')
-    parser.add_argument('--annotation_file', type=str, default=None)
-    parser.add_argument('--output_dir', type=str, default=None)
-    parser.add_argument('--image_dir', type=str, default=None)
+    parser.add_argument('--annotation_file', type=str,
+                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/collect.json')
+    parser.add_argument('--output_dir', type=str,
+                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect')
+    parser.add_argument('--image_dir', type=str,
+                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/Data')
     parser.add_argument('--shortest_size', type=int, default=800)
     args = parser.parse_args()
     return args
@@ -45,7 +48,8 @@ def main():
     new_images = []
     new_annos = []
 
-    for image_id in images_dict:
+    for idx, image_id in enumerate(images_dict):
+        print(idx, len(images_dict))
         image_info = images_dict[image_id]
         tmp_annos = image_anno_dict[image_id]
         w = image_info['width']
@@ -59,11 +63,11 @@ def main():
         short_size = min(w, h)
         ratio = args.shortest_size / short_size
         if w > h:
-            target_w = w * ratio
+            target_w = round(w * ratio)
             target_h = args.shortest_size
         else:
             target_w = args.shortest_size
-            target_h = h * ratio
+            target_h = round(h * ratio)
         image_path = os.path.join(args.image_dir, image_info['file_name'])
         im = Image.open(image_path).convert("RGB")
         im = im.resize((target_w, target_h), Image.ANTIALIAS)
