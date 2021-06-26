@@ -69,17 +69,17 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'dog_eyes_nose/merged_eyes_anno/train.json',
-        img_prefix=data_root + 'dog_eyes_nose/images',
+        ann_file=data_root + 'merged_dog_eyes_nose/train.json',
+        img_prefix=data_root + 'merged_dog_eyes_nose/images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'dog_eyes_nose/merged_eyes_anno/val.json',
-        img_prefix=data_root + 'dog_eyes_nose/images',
+        ann_file=data_root + 'merged_dog_eyes_nose/val.json',
+        img_prefix=data_root + 'merged_dog_eyes_nose/val_images',
         classes=classes, pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'dog_eyes_nose/merged_eyes_anno/val.json',
-        img_prefix=data_root + 'dog_eyes_nose/images',
+        ann_file=data_root + 'merged_dog_eyes_nose/val.json',
+        img_prefix=data_root + 'merged_dog_eyes_nose/val_images',
         classes=classes, pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
