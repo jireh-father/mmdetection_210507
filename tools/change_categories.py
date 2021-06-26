@@ -1,17 +1,16 @@
 import argparse
-
+import glob
 import json
 import os
-import glob
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
                                                  'results saved in pkl format')
-    parser.add_argument('--coco_files_or_pattern', type=str, default=None)
-    parser.add_argument('--output_dir', type=str, default=None)
+    parser.add_argument('--coco_files_or_pattern', type=str, default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/eye_annotations_verified.json,/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/nose_annotations_verified.json')
+    parser.add_argument('--output_dir', type=str, default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/cate_fixed_annos')
     parser.add_argument('--categories_json', type=str,
-                        default='[{"id": 1, "name": "dog_eye", "supercategory": "0_true_positive"}, {"id": 2, "name": "dog_nose", "supercategory": "0_true_positive"}]')
+                        default='[{"supercategory": "dog_eye_nose", "id": 1, "name": "dog_eye"}, {"supercategory": "dog_eye_nose", "id": 2, "name": "dog_nose"}]')
 
     args = parser.parse_args()
     return args

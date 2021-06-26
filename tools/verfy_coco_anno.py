@@ -2,7 +2,6 @@ import argparse
 import json
 import os
 
-from PIL import Image
 from pycocotools import mask
 
 
@@ -10,12 +9,9 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Evaluate metric of the '
                                                  'results saved in pkl format')
     parser.add_argument('--annotation_file', type=str,
-                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/collect.json')
-    parser.add_argument('--output_dir', type=str,
-                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect')
-    parser.add_argument('--image_dir', type=str,
-                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/Data')
-    parser.add_argument('--shortest_size', type=int, default=800)
+                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/eye_annotations.json')
+    parser.add_argument('--output_path', type=str,
+                        default='/media/irelin/data_disk/dataset/dog_eye_nose_detection/detect_10-13_collect/eye_annotations_verified.json')
     args = parser.parse_args()
     return args
 
@@ -23,9 +19,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    output_image_dir = os.path.join(args.output_dir, "images")
-    output_anno_path = os.path.join(args.output_dir, "annotations.json")
-    os.makedirs(output_image_dir, exist_ok=True)
+    os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
     anno = json.load(open(args.annotation_file))
 
     images = anno["images"]
@@ -58,46 +52,44 @@ def main():
         w = image_info['width']
         h = image_info['height']
 
-        if min(w, h) < args.shortest_size:
-            new_images.append(image_info)
-            new_annos += tmp_annos
-            continue
-
-        short_size = min(w, h)
-        ratio = args.shortest_size / short_size
-        if w > h:
-            target_w = round(w * ratio)
-            target_h = args.shortest_size
-        else:
-            target_w = args.shortest_size
-            target_h = round(h * ratio)
-        image_path = os.path.join(args.image_dir, image_info['file_name'])
-        im = Image.open(image_path).convert("RGB")
-        im = im.resize((target_w, target_h), Image.ANTIALIAS)
-        out_fname = os.path.splitext(image_info['file_name'])[0] + ".jpg"
-        im.save(os.path.join(output_image_dir, out_fname), quality=100)
-        image_info['width'] = target_w
-        image_info['height'] = target_h
-        image_info['file_name'] = out_fname
-
-        new_images.append(image_info)
-
         for tmp_anno in tmp_annos:
-            print(tmp_anno['segmentation'])
             if len(tmp_anno['segmentation']) > 1:
                 seg = tmp_anno['segmentation']
             else:
                 seg = tmp_anno['segmentation'][0]
 
-            for i in range(len(seg)):
-                seg[i] = seg[i] * ratio
+            for x_i in range(0, len(seg), 2):
+                y_i = x_i + 1
+                seg[x_i] = min(max(0, seg[x_i]), w - 1)
+                seg[y_i] = min(max(0, seg[y_i]), h - 1)
+
             seg = [seg]
 
             bbox = tmp_anno['bbox']
-            for i in range(len(bbox)):
-                bbox[i] = bbox[i] * ratio
+            x = bbox[0]
+            y = bbox[1]
+            bw = bbox[2]
+            bh = bbox[3]
 
-            rles = mask.frPyObjects(seg, target_h, target_w)
+            if x < 0:
+                bw += x
+                x = 0
+            if y < 0:
+                bh += y
+                y = 0
+
+            if x + bw > w:
+                bw -= ((x + bw) - w)
+
+            if y + bh > h:
+                bh -= ((y + bh) - h)
+
+            bbox[0] = x
+            bbox[1] = y
+            bbox[2] = bw
+            bbox[3] = bh
+
+            rles = mask.frPyObjects(seg, h, w)
             rle = mask.merge(rles)
             area = int(mask.area(rle))
 
@@ -106,10 +98,11 @@ def main():
             new_anno['bbox'] = bbox
             new_anno['area'] = area
             new_annos.append(new_anno)
+            new_images.append(image_info)
 
     anno["images"] = new_images
     anno["annotations"] = new_annos
-    json.dump(anno, open(output_anno_path, "w+"))
+    json.dump(anno, open(args.output_path, "w+"))
 
     print("done")
 
