@@ -27,7 +27,7 @@ albu_train_transforms = [
 
 
 train_pipeline = [
-    dict(type='LoadImageFromFile'),
+    dict(type='LoadImageFromFile', to_float32=True),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(
         type='Resize',
