@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import shutil
 
 from PIL import Image
 from pycocotools import mask
@@ -58,9 +59,12 @@ def main():
         w = image_info['width']
         h = image_info['height']
 
+        image_path = os.path.join(args.image_dir, image_info['file_name'])
+
         if min(w, h) < args.shortest_size:
             new_images.append(image_info)
             new_annos += tmp_annos
+            shutil.copy(image_path, output_image_dir)
             continue
 
         short_size = min(w, h)
@@ -71,7 +75,7 @@ def main():
         else:
             target_w = args.shortest_size
             target_h = round(h * ratio)
-        image_path = os.path.join(args.image_dir, image_info['file_name'])
+
         im = Image.open(image_path).convert("RGB")
         im = im.resize((target_w, target_h), Image.ANTIALIAS)
         out_fname = os.path.splitext(image_info['file_name'])[0] + ".jpg"
