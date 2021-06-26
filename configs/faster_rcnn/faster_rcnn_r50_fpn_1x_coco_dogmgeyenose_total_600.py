@@ -70,7 +70,7 @@ data = dict(
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'merged_dog_eyes_nose/train.json',
-        img_prefix=data_root + 'merged_dog_eyes_nose/images',
+        img_prefix=data_root + 'merged_dog_eyes_nose/train_images',
         classes=classes, pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
