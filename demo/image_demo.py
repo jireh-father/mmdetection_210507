@@ -1,5 +1,4 @@
 import asyncio
-import time
 from argparse import ArgumentParser
 
 from mmdet.apis import (async_inference_detector, inference_detector,
@@ -28,13 +27,7 @@ def main(args):
     model = init_detector(args.config, args.checkpoint, device=args.device)
     # test a single image
     result = inference_detector(model, args.img)
-    total = 0.
-    for i in range(10):
-        start = time.time()
-        result = inference_detector(model, args.img)
-        total += time.time() - start
     # show the results
-    print(total / 10)
     show_result_pyplot(model, args.img, result, score_thr=args.score_thr)
 
 
@@ -44,21 +37,13 @@ async def async_main(args):
     # test a single image
     tasks = asyncio.create_task(async_inference_detector(model, args.img))
     result = await asyncio.gather(tasks)
-    total = 0.
-    for i in range(10):
-        start = time.time()
-        result = await asyncio.gather(tasks)
-        total += time.time() - start
     # show the results
-    print(total / 10)
     show_result_pyplot(model, args.img, result[0], score_thr=args.score_thr)
 
 
 if __name__ == '__main__':
     args = parse_args()
-    start = time.time()
     if args.async_test:
         asyncio.run(async_main(args))
     else:
         main(args)
-    print(time.time() - start)
