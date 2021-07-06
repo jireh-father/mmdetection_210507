@@ -1,4 +1,5 @@
 import asyncio
+import time
 from argparse import ArgumentParser
 
 from mmdet.apis import (async_inference_detector, inference_detector,
@@ -43,7 +44,9 @@ async def async_main(args):
 
 if __name__ == '__main__':
     args = parse_args()
+    start = time.time()
     if args.async_test:
         asyncio.run(async_main(args))
     else:
         main(args)
+    print(time.time() - start)
