@@ -100,6 +100,11 @@ def dogeyenose_classes():
         'eye', 'nose'
     ]
 
+def fashion_classes():
+    return [
+        '아우터_짚업', '아우터_재킷', '아우터_가디건', '아우터_코트', '아우터_베스트', '아우터_점퍼', '아우터_패딩', '하의_청바지', '하의_팬츠', '하의_스커트', '하의_래깅스',
+        '하의_조거팬츠', '원피스_드레스', '원피스_점프수트', '상의_블라우스', '상의_니트웨어', '상의_티셔츠', '상의_셔츠', '상의_탑', '상의_브라탑', '상의_후드티'
+    ]
 
 def foot_triangles_classes():
     return [
@@ -117,6 +122,7 @@ dataset_aliases = {
     'plant': ['plant'],
     'dogeyenose': ['dogeyenose'],
     'foot_triangles': ['foot_triangles'],
+    'fashion': ['fashion'],
 }
 
 
